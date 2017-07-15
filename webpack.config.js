@@ -9,7 +9,18 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: 'index.js'
+  },
+module : {
+    loaders : [
+      {
+        test : /\.jsx?/,
+        include : APP_DIR,
+        loader : 'babel-loader'
+      }
+    ]
   }
 };
+
+
 
 module.exports = config;
