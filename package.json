@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "awesome-typescript-loader": "^3.2.1",
+    "typescript": "^2.4.1",
+    "typings": "^2.1.1",
+    "webpack": "^3.3.0"
+  },
+  "devDependencies": {}
+}
