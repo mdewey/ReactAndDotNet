@@ -14,7 +14,6 @@ class App extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     };
 
-
     handleClick() {
         console.log("posting", this.state.newPlayerName, this.state.newPlayerScore);
         fetch('/api/highscores', {
@@ -60,10 +59,6 @@ class App extends React.Component {
             });
     };
 
-    componentDidMount() {
-        this.updateScores();
-    };
-
     updatePlayerName(e) {
         this.setState({
             newPlayerName: e.target.value
@@ -74,6 +69,11 @@ class App extends React.Component {
             newPlayerScore: e.target.value
         })
     }
+
+    componentDidMount() {
+        this.updateScores();
+    };
+
 
     render() {
         return <div>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ReactAndDotNet.Models;
 
 namespace ReactAndDotNet.Controllers
 {
@@ -18,17 +19,7 @@ namespace ReactAndDotNet.Controllers
             "Pumbaa",
             "Zazu"
         };
-        public class Result
-        {
-            public int Score { get; set; }
-            public string Name { get; set; }
-        }
-
-        public class ScoreDetails
-        {
-            public IEnumerable<Result> Scores { get; set; }
-            public string TimeUpdated { get; set; } = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
-        }
+       
 
         [HttpGet]
         public ScoreDetails Get()

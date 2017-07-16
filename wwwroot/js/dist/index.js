@@ -9832,11 +9832,6 @@ var App = function (_React$Component) {
             });
         }
     }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            this.updateScores();
-        }
-    }, {
         key: 'updatePlayerName',
         value: function updatePlayerName(e) {
             this.setState({
@@ -9849,6 +9844,11 @@ var App = function (_React$Component) {
             this.setState({
                 newPlayerScore: e.target.value
             });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.updateScores();
         }
     }, {
         key: 'render',
