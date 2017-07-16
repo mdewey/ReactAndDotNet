@@ -9775,15 +9775,47 @@ var App = function (_React$Component) {
 
         _this.state = {
             scores: [],
-            timeUpdated: "loading.."
+            timeUpdated: "loading..",
+            newPlayerName: '',
+            newPlayerScore: ''
         };
+        _this.handleClick = _this.handleClick.bind(_this);
         return _this;
     }
 
     _createClass(App, [{
+        key: 'handleClick',
+        value: function handleClick() {
+            var _this2 = this;
+
+            console.log("posting", this.state.newPlayerName, this.state.newPlayerScore);
+            fetch('/api/highscores', {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({ name: this.state.newPlayerName, score: this.state.newPlayerScore })
+            }).then(function (resp) {
+                console.log('resp', resp);
+                return resp.json();
+            }).then(function (json) {
+                console.log('json', json);
+                _this2.setState({
+                    newPlayerName: '',
+                    newPlayerScore: ''
+                });
+                _this2.setState(function (prevState, props) {
+                    return {
+                        timeUpdated: json.timeUpdated,
+                        scores: json.scores
+                    };
+                });
+            });
+        }
+    }, {
         key: 'updateScores',
         value: function updateScores() {
-            var _this2 = this;
+            var _this3 = this;
 
             fetch("/api/highscores").then(function (response) {
                 console.log("repsonse", response);
@@ -9791,7 +9823,7 @@ var App = function (_React$Component) {
             }).then(function (json) {
                 console.log("json", json.scores);
 
-                _this2.setState(function (prevState, props) {
+                _this3.setState(function (prevState, props) {
                     return {
                         timeUpdated: json.timeUpdated,
                         scores: json.scores
@@ -9805,8 +9837,24 @@ var App = function (_React$Component) {
             this.updateScores();
         }
     }, {
+        key: 'updatePlayerName',
+        value: function updatePlayerName(e) {
+            this.setState({
+                newPlayerName: e.target.value
+            });
+        }
+    }, {
+        key: 'updatePlayerScore',
+        value: function updatePlayerScore(e) {
+            this.setState({
+                newPlayerScore: e.target.value
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var _this4 = this;
+
             return _react2.default.createElement(
                 'div',
                 null,
@@ -9834,11 +9882,15 @@ var App = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement('input', { type: 'text', placeholder: 'Name' }),
-                    _react2.default.createElement('input', { type: 'number', placeholder: 'Score' }),
+                    _react2.default.createElement('input', { type: 'text', placeholder: 'Name', value: this.state.newPlayerName, onChange: function onChange(evt) {
+                            return _this4.updatePlayerName(evt);
+                        } }),
+                    _react2.default.createElement('input', { type: 'number', placeholder: 'Score', value: this.state.newPlayerScore, onChange: function onChange(evt) {
+                            return _this4.updatePlayerScore(evt);
+                        } }),
                     _react2.default.createElement(
                         'button',
-                        null,
+                        { onClick: this.handleClick },
                         'Add Player'
                     )
                 ),

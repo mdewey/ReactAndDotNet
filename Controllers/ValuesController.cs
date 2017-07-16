@@ -50,7 +50,7 @@ namespace ReactAndDotNet.Controllers
                 .Where(w => w.Name != data.Name)
                 .ToList();
 
-            if (Names.Any(a => a != data.Name)){
+            if (!(Names.Any(a => a == data.Name))){
                  Names.Add(data.Name);
             }
 

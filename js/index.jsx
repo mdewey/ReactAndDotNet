@@ -7,10 +7,40 @@ class App extends React.Component {
         super();
         this.state = {
             scores: [],
-            timeUpdated: "loading.."
+            timeUpdated: "loading..",
+            newPlayerName: '',
+            newPlayerScore: ''
         };
+        this.handleClick = this.handleClick.bind(this);
     };
 
+
+    handleClick() {
+        console.log("posting", this.state.newPlayerName, this.state.newPlayerScore);
+        fetch('/api/highscores', {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({ name: this.state.newPlayerName, score: this.state.newPlayerScore })
+        }).then((resp) => {
+            console.log('resp', resp)
+            return resp.json();
+        }).then((json) => {
+            console.log('json', json);
+            this.setState({
+                newPlayerName: '',
+                newPlayerScore: ''
+            });
+            this.setState((prevState, props) => {
+                return {
+                    timeUpdated: json.timeUpdated,
+                    scores: json.scores
+                }
+            });
+        });
+
+    }
 
     updateScores() {
         fetch("/api/highscores")
@@ -34,6 +64,17 @@ class App extends React.Component {
         this.updateScores();
     };
 
+    updatePlayerName(e) {
+        this.setState({
+            newPlayerName: e.target.value
+        })
+    }
+    updatePlayerScore(e) {
+        this.setState({
+            newPlayerScore: e.target.value
+        })
+    }
+
     render() {
         return <div>
             <div>
@@ -43,9 +84,9 @@ class App extends React.Component {
                 <h3>Number of players : {this.state.scores.length}</h3>
             </div>
             <div>
-                <input type="text" placeholder="Name" />
-                <input type="number" placeholder="Score" />
-                <button>Add Player</button>
+                <input type="text" placeholder="Name" value={this.state.newPlayerName} onChange={evt => this.updatePlayerName(evt)} />
+                <input type="number" placeholder="Score" value={this.state.newPlayerScore} onChange={evt => this.updatePlayerScore(evt)} />
+                <button onClick={this.handleClick}>Add Player</button>
             </div>
             <div>
                 <table>
