@@ -6,29 +6,37 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ReactAndDotNet.Controllers
 {
-    [Route("api/workouts")]
+    [Route("api/highscores")]
     public class ValuesController : Controller
     {
-        public static Dictionary<string, string> Workouts = new Dictionary<string,string>{
-            {"monday", "Yoga"},
-            {"tuesday", "Yoga & Run"},
-            {"wednesday", "Yoga & Sprint"},
-            {"thursday", "yoga & lift"}, 
-            {"friday", "yoga & run"}, 
-            {"saturday", "yoga & sprint"}, 
-            {"sunday", "yoga & lift"}
+        public List<string> Names = new List<string>{
+            "Rafiki",
+            "Mufusa",
+            "Nala",
+            "Simba",
+            "Timon",
+            "Pumbaa",
+            "Zazu"
         };
-        [HttpGet]
-        public Dictionary<string,string> Get()
+        public class Result
         {
-            return Workouts;
+            public int Score { get; set; }
+            public string Name { get; set; }
         }
 
-        // GET api/values/5
-        [HttpGet("{day}")]
-        public string Get(string day)
+        public class ScoreDetails {
+            public IEnumerable<Result> Scores { get; set; }
+            public string TimeUpdated { get; set; } = DateTime.Now.ToString("MM/dd/yy H:mm:ss");
+        }
+
+        [HttpGet]
+        public ScoreDetails Get()
         {
-            return Workouts[day];
+            // Mock High Scores 
+            var scores = Names
+                .Select(s => new Result { Name = s, Score = new Random(s.GetHashCode() * DateTime.Now.Millisecond).Next(0, 100) })
+                .OrderByDescending(o => o.Score);
+            return new ScoreDetails { Scores  = scores };
         }
     }
 }

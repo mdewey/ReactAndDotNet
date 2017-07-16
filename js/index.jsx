@@ -6,30 +6,52 @@ class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            scores: []
+            scores: [],
+            timeUpdated: "loading.."
         };
     };
 
-    componentDidMount() {
+
+    updateScores() {
         fetch("/api/highscores")
             .then((response) => {
                 console.log("repsonse", response)
                 return response.json()
             })
             .then((json) => {
-                console.log("json", json)
-                this.setState({ scores: json });
+                console.log("json", json.scores)
+
+                this.setState((prevState, props) => {
+                    return {
+                        timeUpdated: json.timeUpdated,
+                        scores: json.scores
+                    }
+                });
             });
     };
 
 
+    componentDidMount() {
+        this.updateScores();
+    };
+
+
     render() {
-        return this.state.scores.map((score) => {
-            return <div>
-                <div>{score.person}</div>
-                <div>{score.points}</div>
+        return <div>
+            <h3>{this.state.timeUpdated} </h3>
+            <h3>{this.state.scores.length}</h3>
+            <div>
+                {this.state.scores.map((player, i) => {
+                    return <div>
+                        <div key={i}>
+                            <div>{player.name}</div>
+                            <div>{player.score}</div>
+                        </div>
+                    </div>
+                })}
             </div>
-        });
+        </div>
+
     }
 }
 

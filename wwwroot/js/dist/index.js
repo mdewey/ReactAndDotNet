@@ -9773,30 +9773,78 @@ var App = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
-        _this.state = {};
+        _this.state = {
+            scores: [],
+            timeUpdated: "loading.."
+        };
         return _this;
     }
 
     _createClass(App, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
+        key: 'updateScores',
+        value: function updateScores() {
             var _this2 = this;
 
-            fetch("/api/workouts").then(function (response) {
+            fetch("/api/highscores").then(function (response) {
                 console.log("repsonse", response);
                 return response.json();
             }).then(function (json) {
-                console.log("json", json);
-                _this2.setState({ workout: json.monday });
+                console.log("json", json.scores);
+
+                _this2.setState(function (prevState, props) {
+                    return {
+                        timeUpdated: json.timeUpdated,
+                        scores: json.scores
+                    };
+                });
             });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.updateScores();
         }
     }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                'p',
+                'div',
                 null,
-                this.state.workout
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    this.state.timeUpdated,
+                    ' '
+                ),
+                _react2.default.createElement(
+                    'h3',
+                    null,
+                    this.state.scores.length
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    this.state.scores.map(function (player, i) {
+                        return _react2.default.createElement(
+                            'div',
+                            null,
+                            _react2.default.createElement(
+                                'div',
+                                { key: i },
+                                _react2.default.createElement(
+                                    'div',
+                                    null,
+                                    player.name
+                                ),
+                                _react2.default.createElement(
+                                    'div',
+                                    null,
+                                    player.score
+                                )
+                            )
+                        );
+                    })
+                )
             );
         }
     }]);
