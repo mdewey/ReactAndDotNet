@@ -30,26 +30,37 @@ class App extends React.Component {
             });
     };
 
-
     componentDidMount() {
         this.updateScores();
     };
 
-
     render() {
         return <div>
-            <h3>{this.state.timeUpdated} </h3>
-            <h3>{this.state.scores.length}</h3>
             <div>
-                {this.state.scores.map((player, i) => {
-                    return <div>
-                        <div key={i}>
-                            <div>{player.name}</div>
-                            <div>{player.score}</div>
-                        </div>
-                    </div>
-                })}
+                <h4>last updated @ {this.state.timeUpdated} </h4>
             </div>
+            <div>
+                <h3>Number of players : {this.state.scores.length}</h3>
+            </div>
+            <div>
+                <input type="text" placeholder="Name" />
+                <input type="number" placeholder="Score" />
+                <button>Add Player</button>
+            </div>
+            <div>
+                <table>
+                    <tbody>
+                        {this.state.scores.map((player, i) => {
+                            return <tr key={i}>
+                                <td>{player.name}</td>
+                                <td>{player.score}</td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+
+            </div>
+
         </div>
 
     }

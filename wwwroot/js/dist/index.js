@@ -9811,39 +9811,64 @@ var App = function (_React$Component) {
                 'div',
                 null,
                 _react2.default.createElement(
-                    'h3',
+                    'div',
                     null,
-                    this.state.timeUpdated,
-                    ' '
-                ),
-                _react2.default.createElement(
-                    'h3',
-                    null,
-                    this.state.scores.length
+                    _react2.default.createElement(
+                        'h4',
+                        null,
+                        'last updated @ ',
+                        this.state.timeUpdated,
+                        ' '
+                    )
                 ),
                 _react2.default.createElement(
                     'div',
                     null,
-                    this.state.scores.map(function (player, i) {
-                        return _react2.default.createElement(
-                            'div',
+                    _react2.default.createElement(
+                        'h3',
+                        null,
+                        'Number of players : ',
+                        this.state.scores.length
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('input', { type: 'text', placeholder: 'Name' }),
+                    _react2.default.createElement('input', { type: 'number', placeholder: 'Score' }),
+                    _react2.default.createElement(
+                        'button',
+                        null,
+                        'Add Player'
+                    )
+                ),
+                _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement(
+                        'table',
+                        null,
+                        _react2.default.createElement(
+                            'tbody',
                             null,
-                            _react2.default.createElement(
-                                'div',
-                                { key: i },
-                                _react2.default.createElement(
-                                    'div',
-                                    null,
-                                    player.name
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    null,
-                                    player.score
-                                )
-                            )
-                        );
-                    })
+                            this.state.scores.map(function (player, i) {
+                                return _react2.default.createElement(
+                                    'tr',
+                                    { key: i },
+                                    _react2.default.createElement(
+                                        'td',
+                                        null,
+                                        player.name
+                                    ),
+                                    _react2.default.createElement(
+                                        'td',
+                                        null,
+                                        player.score
+                                    )
+                                );
+                            })
+                        )
+                    )
                 )
             );
         }
