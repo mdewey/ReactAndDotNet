@@ -9848,12 +9848,17 @@ var App = function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
+            var _this4 = this;
+
             this.updateScores();
+            setInterval(function () {
+                _this4.updateScores();
+            }, 3000);
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this4 = this;
+            var _this5 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -9883,10 +9888,10 @@ var App = function (_React$Component) {
                     'div',
                     null,
                     _react2.default.createElement('input', { type: 'text', placeholder: 'Name', value: this.state.newPlayerName, onChange: function onChange(evt) {
-                            return _this4.updatePlayerName(evt);
+                            return _this5.updatePlayerName(evt);
                         } }),
                     _react2.default.createElement('input', { type: 'number', placeholder: 'Score', value: this.state.newPlayerScore, onChange: function onChange(evt) {
-                            return _this4.updatePlayerScore(evt);
+                            return _this5.updatePlayerScore(evt);
                         } }),
                     _react2.default.createElement(
                         'button',

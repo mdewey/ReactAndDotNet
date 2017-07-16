@@ -72,6 +72,9 @@ class App extends React.Component {
 
     componentDidMount() {
         this.updateScores();
+        setInterval(() => { 
+            this.updateScores()
+        }, 3000);
     };
 
 
