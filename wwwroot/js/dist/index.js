@@ -9936,7 +9936,7 @@ var App = function (_React$Component) {
 
 (0, _reactDom.render)(_react2.default.createElement(App, null), document.getElementById('app'));
 
-// for help later https://www.codementor.io/tamizhvendan/beginner-guide-setup-reactjs-environment-npm-babel-6-webpack-du107r9zr
+// for help later n
 
 /***/ }),
 /* 82 */
