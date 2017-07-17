@@ -1,4 +1,4 @@
-# ReactAndDotNet
+# React And DotNet
 This is the where the final code and the starter code for the React and DotNet Crash Course at TIY. The master is the starting template. The final code is on the branch `final`
 
 
